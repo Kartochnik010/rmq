@@ -1,7 +1,9 @@
 # Learn RabbitMQ 
 
 ### Current state
-- Fanout
+- RPC
+
+![rpc](image.png)
 
 ## Quick Start
 
@@ -69,12 +71,10 @@ Now an exchange should be created. Choose the type of exchange.
     # Create an Exchange
     rabbitmqadmin declare exchange --vhost=test name=test_events type=topic -u admin -p admin durable=true
     rabbitmqctl set_topic_permissions -p test admin test_events "^test.*" "^test.*"
-    Setting topic permissions on "test_events" for user "admin" in vhost "test" ...
 
     # change exchange type to fanout
-    rabbitmqadmin delete exchange --vhost=test name=test_events  -u admin -p admin
-    rabbitmqadmin declare exchange --vhost=test name=test_events type=fanout -u admin -p admin durable=true
-    rabbitmqctl set_topic_permissions -p test admin test_events ".*" ".*"
+    rabbitmqadmin declare exchange --vhost=test name=test_callbacks type=direct -u admin -p admin durable=true
+    rabbitmqctl set_topic_permissions -p test admin test_callbacks ".*" ".*"
 
 
 Connection string will be `amqp://$RMQ_USERNAME:$RMQ_PASSWORD@localhost/$RMQ_VHOST`

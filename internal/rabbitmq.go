@@ -82,3 +82,11 @@ func (r *RMQClient) Consume(queue, consumer string, autoAck bool) (<-chan ampq.D
 	return r.ch.Consume(queue, consumer, autoAck, false, false, false, nil)
 
 }
+
+// ApplyQoS applies the Quality of Service settings to the channel
+func (r *RMQClient) ApplyQoS(count, size int, global bool) error {
+	// prefetchCount int - the number of messages to fetch
+	// prefetchSize int - the size of the messages to fetch
+	// global bool - global will apply the settings to the entire connection
+	return r.ch.Qos(count, size, global)
+}
